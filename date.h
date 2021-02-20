@@ -50,26 +50,26 @@ class Date
 		Date();
 		Date(int d, int m, int y);
 
-    // outputs the date
-	friend std::ostream& operator << (std::ostream& outs, Date d);
+		// outputs the date
+		friend std::ostream& operator << (std::ostream& outs, Date d);
 
-    //inputs the date
-	friend std::istream& operator >> (std::istream& ins, Date& d);
+		//inputs the date
+		friend std::istream& operator >> (std::istream& ins, Date& d);
 
-	/**************************************************
-			COMPARSION OPERATORS
-	**************************************************/
-	friend bool operator > (const Date& d1, const Date& d2);
+		/**************************************************
+				COMPARSION OPERATORS
+		**************************************************/
+		friend bool operator > (const Date& d1, const Date& d2);
 
-	friend bool operator < (const Date& d1, const Date& d2);
+		friend bool operator < (const Date& d1, const Date& d2);
 
-	friend bool operator == (const Date& d1, const Date& d2);
+		friend bool operator == (const Date& d1, const Date& d2);
 
-	friend bool operator != (const Date& d1, const Date& d2);
-	
-	friend bool operator <= (const Date& d1, const Date& d2);
+		friend bool operator != (const Date& d1, const Date& d2);
+		
+		friend bool operator <= (const Date& d1, const Date& d2);
 
-	friend bool operator >= (const Date& d1, const Date& d2);
+		friend bool operator >= (const Date& d1, const Date& d2);
 
 
 	private:

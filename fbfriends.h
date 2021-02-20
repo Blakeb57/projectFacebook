@@ -26,7 +26,7 @@ class FBFriends
 		// Functions for the internal iterator
 		void start();
 		void advance();
-		bool is_item()const;
+		bool is_item();
 		Friend current()const;
 		void remove_current();
 		void insert(const Friend& f);

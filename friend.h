@@ -17,9 +17,9 @@
 class Friend
 {
     public:
-		Friend();
-		std::string get_name()const;
-		Date get_bday()const;
+		Friend(Date b = Date(1,1,1900), std::string n = "VOID");
+		std::string get_name()const{return name;}
+		Date get_bday()const{return bday;}
 		bool operator == (const Friend& other)const;
 		bool operator != (const Friend& other)const;
 		void input(std::istream& ins);
