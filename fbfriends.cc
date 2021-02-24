@@ -13,6 +13,14 @@ FBFriends::FBFriends()
     current_index = 0;
 }
 
+FBFriends::FBFriends(const FBFriends& other)
+{
+    capacity = other.capacity;
+    used = other.used;
+    data = new Friend[capacity];
+    copy(other.data, other.data + used, data);
+}
+
 FBFriends::~FBFriends()
 {
     delete [] data;
@@ -44,7 +52,7 @@ void FBFriends::advance()
 
 bool FBFriends::is_item()
 {
-    current_index < used;
+    return current_index < used;
 }
 
 Friend FBFriends::current()const
@@ -66,13 +74,21 @@ void FBFriends::remove_current()
 
 void FBFriends::insert(const Friend& f)
 {
-    if(used == capacity)
+
+    if(used >= capacity)
     {
         this->resize();
         this->insert(f);
     }
 
-    data[used] = f;
+    for(int i = used-1; i >= current_index; --i)
+    {
+        data[i+1] = data[i];
+    }
+
+    data[current_index].set_name(f.get_name());
+    data[current_index].set_bday(f.get_bday());
+
     used++;
 }
 
@@ -100,9 +116,11 @@ void FBFriends::attach(const Friend& f)
 
 void FBFriends::show_all(std::ostream& outs)const
 {
+    Friend tmp;
+
     for(int i = 0; i < used; ++i)
     {
-        outs << data[i].get_name() << data[i].get_bday() << endl;
+        outs << data[i].get_name() << endl;
     }
 }
 
@@ -137,11 +155,14 @@ Friend FBFriends::find_friend(const std::string& name)const
         if(name == data[i].get_name())
         {
             index = i;
-            cout << data[index] << endl;
         }
     }
 
-    if(index == -1)
+    if(index != -1)
+    {
+        return data[index];
+
+    }else
     {
         cout << name << " could not be found in your friends list." << endl;
     }
@@ -149,22 +170,27 @@ Friend FBFriends::find_friend(const std::string& name)const
 
 bool FBFriends::is_friend(const Friend& f)const
 {
+    Friend tmp;
 
+    for(int i = 0; i < used; i++)
+    {
+        if(data[i] == (f))
+        {
+            return true;
+        }
+    }
+    return false;
 }
 
 void FBFriends::load(std::istream& ins)
 {
-    //Friend *tmp;
-    Friend tmp;
+    Friend *tmp;
 
     while(!ins.eof())
     {
-        //tmp = new Friend;
-
-        //tmp -> input(ins);
-        tmp.input(ins);
-        //data[used] = *tmp;
-        this->insert(tmp);
+        tmp = new Friend;
+        tmp -> input(ins);
+        data[used] = *tmp;
         used++;
     }
 }

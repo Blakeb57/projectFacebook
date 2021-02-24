@@ -11,26 +11,36 @@ Friend::Friend(Date b, string n)
     name = n;
 }
 
+void Friend::set_name(const std::string& sn)
+{
+    this -> name = sn;
+}
+
+void Friend::set_bday(const Date d)
+{
+    this -> bday = d;
+}
+
 void Friend::input(std::istream& ins)
 {
-    string line;
 
     if(&ins == &cin)
     {
         cout << "Please enter the name of the friend you want to add: ";
-        getline(ins, name);
+        ins >> name;
         cout << endl;
         cout << "Please enter the birthday of your new friend: ";
         ins >> bday;
         cout << endl;
 
-        cout << get_name() << " " << get_bday() << "Is now added to your friends list." << endl;
+        //cout << get_name() << " " << get_bday() << " Is now added to your friends list." << endl;
     }else
     {
         ins >> name;
         ins >> bday;
 
-        cout << get_name() << " " << get_bday() << "Is now added to your friends list." << endl;
+        cout << get_name() << " " << get_bday() << endl;
+        cout << "Is now added to your friends list." << endl;
     }
 }
 
@@ -62,10 +72,18 @@ istream& operator >> (istream& ins, Friend& f)
 
 bool Friend::operator == (const Friend& other)const
 {
-
+    if (this->name == other.get_name() && this->bday == other.get_bday()){
+        return true;
+    } else {
+        return false;
+    }
 }
 
 bool Friend::operator != (const Friend& other)const
 {
-
+    if (this->name != other.get_name() || this->bday != other.get_bday()){
+        return true;
+    } else {
+        return false;
+    }
 }
